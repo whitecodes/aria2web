@@ -4,7 +4,7 @@ import Chart from 'chart.js'
 
 Vue.use(VueResource)
 
-var rpcUrl = 'https://token:aria@localhost:6800/jsonrpc';
+var rpcUrl = 'http://localhost:6800/jsonrpc';
 var info = {downloadSpeed: '0',uploadSpeed: '0',version: 'unknow'};
 var speedList=[0];
 var counter=[0];
@@ -22,6 +22,7 @@ new Vue({
 				info.version = response.data.result.version;
 			},(response)=>{
 				info.version='unknow';
+				console.log('error')
 			})
 		},
 		getGlobalSpeed: function() {
