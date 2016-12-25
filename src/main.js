@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Chart from 'chart.js'
-// import smoothie from 'smoothie'
-// import App from './App.vue'
 
 Vue.use(VueResource)
 
-var rpcUrl = 'http://localhost:6800/jsonrpc';
+var rpcUrl = 'https://token:aria@localhost:6800/jsonrpc';
 var info = {downloadSpeed: '0',uploadSpeed: '0',version: 'unknow'};
 var speedList=[0];
 var counter=[0];
@@ -68,7 +66,6 @@ new Vue({
       	data: {
       		labels: counter,
       		datasets: [{
-            //label: '# of Votes',
             data: speedList,
             radius: 0,
         }]
@@ -88,51 +85,6 @@ new Vue({
     	pointStyle: "line"
     }
 })
-
-
-// var lineChart = new smoothie.SmoothieChart({
-//   grid: {},
-//   labels: { disabled:true },
-//   maxValueScale:1.2,
-//   millisPerPixel:50,
-//   interpolation:'linear'
-// });
-
-// // Data
-// var downLine = new smoothie.TimeSeries();
-// var upLine = new smoothie.TimeSeries();
-
-// // Add speed to each line every second
-// setInterval(function() {
-//   downLine.append(new Date().getTime(), info.downloadSpeed);
-// }, 1000);
-// setInterval(function() {
-//   upLine.append(new Date().getTime(), info.uploadSpeed);
-// }, 1000);
-
-// // Add to SmoothieChart
-// lineChart.addTimeSeries(downLine,{
-// 	strokeStyle:'rgb(0, 255, 0)',
-// 	fillStyle:'rgba(0, 255, 0, 0.4)',
-// 	lineWidth:3 
-// });
-// lineChart.addTimeSeries(upLine,{ 
-// 	strokeStyle:'rgb(255, 0, 255)', 
-// 	fillStyle:'rgba(255, 0, 255, 0.3)', 
-// 	lineWidth:3 
-// });
-
-//  /*delay*/
-// lineChart.streamTo(document.getElementById("canvas"), 1000); 
-
-
-
-
-
-
-
-
-
 
 function speedFormat(speed) {
 	var speedBps = speed * 1;
