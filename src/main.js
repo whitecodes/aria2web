@@ -5,10 +5,49 @@ import Chart from 'chart.js'
 Vue.use(VueResource)
 
 var rpcUrl = 'http://localhost:6800/jsonrpc'; // TODO it will to setted by user
+var rpcParam = '';// TODO
 var info = {downloadSpeed: '0',uploadSpeed: '0',version: 'unknow'};
 var downLoadSpeedList=[];
 var upLoadSpeedList=[];
 var counter=[];
+var taskList={
+	active: [{
+		bitfield: '',
+		bittorrent: {
+			announceList: [[]],
+			comment: '',
+			creationDate: '',
+			info: {
+				name: ''
+			},
+			mode: ''
+		},
+		completedLength:'',
+		connections:'',
+		dir:'',
+		downloadSpeed:'',
+		files: [{
+			completedLength: '',
+			index: '',
+			length: '',
+			path: '',
+			selected: '',
+			uris: []
+		}],
+		gid: '',
+		infoHash: '',
+		numPieces: '',
+		numSeeders: '',
+		pieceLength: '',
+		seeder: '',
+		status: '',
+		totalLength: '',
+		uploadLenght: '',
+		uploadSpeed: ''
+	}], 
+	wating: [], 
+	tellStopped: []
+};
 
 new Vue({
 	el: '#app',
@@ -19,18 +58,17 @@ new Vue({
 	},
 	methods: {
 		getVersion: function() {
-			// TODO 
-			this.$http.get(rpcUrl, {params:{'jsonrpc':'2.0', 'id':'aria2web', 'method':'aria2.getVersion'}}).then((response)=>{
+			// TODO what should i do about set "rpc-secret"
+			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.getVersion'}}).then((response)=>{
 				info.version = response.data.result.version;
 			},(response)=>{
-				info.version='unknow';
+				info.version = 'unknow';
 				console.log('error')
 			})
 		},
 		getGlobalSpeed: function() {
 			var self = this;
 			self.$http.get(rpcUrl, {params:{'jsonrpc':'2.0', 'id':'aria2web', 'method':'aria2.getGlobalStat'}}).then((response)=>{
-				//console.log(response.data.result)
 				setTimeout(function(){
 					self.getGlobalSpeed() 
 				}, 1000);
@@ -40,16 +78,13 @@ new Vue({
 				upLoadSpeedList.push(info.uploadSpeed);
 				counter.push(counter.length);
 				chart.update();
-				//console.log(speedList);
-        	},(response)=>{
-        		console.log('error')
-        	})
+				// console.log(response.data.result);
+			},(response)=>{
+				console.log('error')
+			})
 		},
-
-		creatChart: function() {
-		}
 	},
-	computed:{
+	computed: {
 		downLoad: function() {
 			return speedFormat(info.downloadSpeed);
 		},
@@ -64,6 +99,34 @@ new Vue({
 	}
 });
 
+new Vue({
+	el: '#tasks',
+	data: taskList,
+	mounted: function() {
+		this.getActionTask();
+	},
+	methods: {
+		getActionTask: function() {
+			var self = this;
+			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.tellActive'}}).then((response)=>{
+				setTimeout(function(){
+					self.getActionTask() 
+				}, 1000);
+				taskList.active=response.data.result;
+				//console.log(this.active);
+			},(response)=>{
+				console.log(response.data.error);
+			})
+		}
+	},
+	computed: {
+		rate: function() {
+
+			return "50%";
+		}
+	}
+});
+
 // fetch canvas DOM element
 let canvas = document.getElementById("canvas");
 // init chart.js
@@ -72,9 +135,17 @@ var chart = new Chart(canvas, {
 	data: {
 		labels: counter,
 		datasets: [{
+			fill: false,
+			backgroundColor: "rgba(0,255,0,0.4)",
+			borderColor: "rgba(0,255,0,1)",
+			yAxisID: "y-axis-0",
 			data: downLoadSpeedList,
 			radius: 0 // data point dons't display
 		},{
+			fill: false,
+			backgroundColor: "rgba(255,255,0,0.4)",
+			borderColor: "rgba(255,255,0,1)",
+			yAxisID: "y-axis-1",
 			data: upLoadSpeedList,
 			radius: 0
 		}]
@@ -88,8 +159,17 @@ var chart = new Chart(canvas, {
 			yAxes:[{
 				display: false,
 				ticks: {
-                    beginAtZero:true
-                }
+					beginAtZero:true
+				},
+				position: "left",
+				id: "y-axis-0"
+			}, {
+				display: false,
+				ticks: {
+					beginAtZero:true
+				},
+				position: "left",
+				id: "y-axis-1"
 			}]
 		},
 		legend: {

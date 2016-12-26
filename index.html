@@ -1,21 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <style type="text/css">
-
+	.speedChart{
+		background-color: rgba(0, 0, 255, 0.5);
+	}
+	.midBar{
+		border-style: solid;
+		border-top-width: 0px;
+		border-bottom-width: 1px;
+		border-right-width: 0px;
+		border-left-width: 0px;
+		height: 40px;
+		width: 100%
+	}
+	.leftBar{
+		float: left;
+	}
+	.rightIBar{
+		float: right;
+	}
+	.task-list{
+		width: 100%
+	}
 </style>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>aria2web</title>
-  </head>
-  <body>
-    <div id="app">
-    	<canvas id="canvas" style="width: 100%; height: 200px"></canvas>
-    	<span>downloadSpeed: {{ downLoad }} |</span>
-    	<span>uploadSpeed: {{ upLoad }} |</span>
-    	<span>version: {{ version }}</span>
-    </div>
-    <script src="./dist/build.js"></script>
-  </body>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>aria2web</title>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css" integrity="sha384-CCTZv2q9I9m3UOxRLaJneXrrqKwUNOzZ6NGEUMwHtShDJ+nCoiXJCAgi05KfkLGY" crossorigin="anonymous">
+</head>
+<body style="margin: 0px">
+	<div id="app">
+		<canvas id="canvas" style="width: 100%; height: 200px" class="speedChart"></canvas>
+		<div class="midBar">
+			<div class="leftBar">
+				<button class="pure-button">add</button>
+			</div>
+			<div class="rightIBar">
+				<span v-show="downloadSpeed > 0">down:{{ downLoad }}</span>
+				<span v-show="downloadSpeed > 0 && uploadSpeed > 0">/</span>
+				<span v-show="uploadSpeed > 0">up:{{ upLoad }}</span>
+				<span>  version: {{ version }}</span>
+				<button class="pure-button">setting</button>
+			</div>
+		</div>
+	</div>
+	<div id="tasks">
+		<table class="pure-table pure-table-horizontal task-list">
+			<tbody>
+				<tr v-for="task in active">
+					<td>{{ task.bittorrent.info.name }}</td>
+					<td>{{ task.completedLength/task.totalLength*100 }}%</td>
+					<td>{{ task.downloadSpeed }}</td>
+					<td>{{ task.uploadSpeed }}</td>
+					<td>{{ task.status }}</td>
+					<td>
+					<button class="pure-button" v-show="task.status == 'paused'">start</button>
+					</td>
+					<td>
+						<button class="pure-button" v-show="task.status != 'paused'">stop</button>
+					</td>
+					<td>
+						<button class="pure-button">remove</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="./dist/build.js"></script> 
+</body>
 </html>
