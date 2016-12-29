@@ -1,6 +1,6 @@
 export default {
 
-    // TODO poor code style
+    // TODO: poor code style
     speedFormat: function(speed){
         var speedBps = speed * 1;
         if(speedBps > 1000) {

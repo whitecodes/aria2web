@@ -8,8 +8,8 @@ Vue.config.debug = true;
 
 Vue.use(VueResource)
 
-var rpcUrl = 'http://localhost:6800/jsonrpc'; // TODO it will to setted by user
-var rpcParam = '';// TODO
+var rpcUrl = 'http://localhost:6800/jsonrpc'; // TODO: it will to setted by user
+var rpcParam = '';// TODO: 相同的参数
 var info = {
 	globalStat: {
 		downloadSpeed: '0',
@@ -138,7 +138,7 @@ new Vue({
 	},
 	methods: {
 		getVersion: function() {
-			// TODO what should i do about set "rpc-secret"
+			// TODO: what should i do about set "rpc-secret"
 			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.getVersion'}}).then((response)=>{
 				info.version = response.data.result.version;
 			},(response)=>{
@@ -153,7 +153,7 @@ new Vue({
 					self.getGlobalSpeed() 
 				}, 1000);
 				info.globalStat = response.data.result;
-				downLoadSpeedList.push(info.globalStat.downloadSpeed); // maybe there a problem with data add too much
+				downLoadSpeedList.push(info.globalStat.downloadSpeed); //TODO: maybe there a problem with data add too much
 				upLoadSpeedList.push(info.globalStat.uploadSpeed);
 				counter.push(counter.length);
 				//chart.update();
@@ -162,7 +162,7 @@ new Vue({
 				console.log('error')
 			})
 		},
-		//TODO
+		//TODO：add task
 		addTask: function() {
 			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.add', 'params': ''}}).then((response)=>{
 				console.log(response.data.result);
@@ -186,6 +186,7 @@ new Vue({
 	// }
 });
 
+// TODO:这个要组件化
 new Vue({
 	el: '#activeTasks',
 	data: taskList,

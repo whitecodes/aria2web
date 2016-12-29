@@ -6,12 +6,14 @@
 	<td>{{ upLoad }}</td>
 	<td>{{ taskDetail.status }}</td>
 	<td>
+	<!-- TODO:开始任务的功能添加 -->
 		<button class="pure-button" v-show="taskDetail.status == 'paused'">start</button>
 	</td>
 	<td>
 		<button class="pure-button" v-show="taskDetail.status != 'paused'" v-on:click="pauseTask">stop</button>
 	</td>
 	<td>
+		<!-- TODO:删除任务的功能添加 -->
 		<button class="pure-button">remove</button>
 	</td>
 </tr>
