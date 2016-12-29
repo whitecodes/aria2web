@@ -1,7 +1,7 @@
 import format from './speed-format.js'
 
 module.exports = {
-    template: require('./detail.html'),
+    template: require('./task-detail.html'),
     props: {
         taskDetail: {
             type: Object,
