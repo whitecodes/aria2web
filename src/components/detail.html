@@ -1,0 +1,17 @@
+<tr>
+	<td>{{ taskDetail.gid }}</td>
+	<td>{{ taskDetail.bittorrent.info.name }}</td>
+	<td>{{ rate }}</td>
+	<td>{{ downLoad }}</td>
+	<td>{{ upLoad }}</td>
+	<td>{{ taskDetail.status }}</td>
+	<td>
+		<button class="pure-button" v-show="taskDetail.status == 'paused'">start</button>
+	</td>
+	<td>
+		<button class="pure-button" v-show="taskDetail.status != 'paused'" v-on:click="pauseTask">stop</button>
+	</td>
+	<td>
+		<button class="pure-button">remove</button>
+	</td>
+</tr>

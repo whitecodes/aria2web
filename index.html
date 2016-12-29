@@ -35,39 +35,27 @@
 		<canvas id="canvas" style="width: 100%; height: 200px" class="speedChart"></canvas>
 		<div class="midBar">
 			<div class="leftBar">
-				<button class="pure-button">add</button>
+				<button class="pure-button" v-on:click="addTask">add</button>
 			</div>
 			<div class="rightIBar">
-				<span v-show="downloadSpeed > 0">down:{{ downLoad }}</span>
-				<span v-show="downloadSpeed > 0 && uploadSpeed > 0">/</span>
-				<span v-show="uploadSpeed > 0">up:{{ upLoad }}</span>
+				<span v-show="globalStat.downloadSpeed > 0">down:{{ downLoad }}</span>
+				<span v-show="globalStat.downloadSpeed > 0 && globalStat.uploadSpeed > 0">/</span>
+				<span v-show="globalStat.uploadSpeed > 0">up:{{ upLoad }}</span>
 				<span>  version: {{ version }}</span>
 				<button class="pure-button">setting</button>
 			</div>
 		</div>
-	</div>
-	<div id="tasks">
-		<table class="pure-table pure-table-horizontal task-list">
-			<tbody>
-				<tr v-for="task in active">
-					<td>{{ task.bittorrent.info.name }}</td>
-					<td>{{ task.completedLength/task.totalLength*100 }}%</td>
-					<td>{{ task.downloadSpeed }}</td>
-					<td>{{ task.uploadSpeed }}</td>
-					<td>{{ task.status }}</td>
-					<td>
-					<button class="pure-button" v-show="task.status == 'paused'">start</button>
-					</td>
-					<td>
-						<button class="pure-button" v-show="task.status != 'paused'">stop</button>
-					</td>
-					<td>
-						<button class="pure-button">remove</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		</div>
+		<div id="activeTasks"> <!-- v-if="globalStat.numActive > 0"> -->
+			<table class="pure-table pure-table-horizontal task-list">
+				<tbody>
+					<template v-for="(task, index) in active">
+						<task-detail v-bind:task-detail="task"></task-detail>
+					</template>
+				</tbody>
+			</table>
+		</div>
+	<!-- </div> -->
 	<script src="./dist/build.js"></script> 
 </body>
 </html>

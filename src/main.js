@@ -2,11 +2,25 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Chart from 'chart.js'
 
+import format from './components/speed-format.js'
+
+Vue.config.debug = true;
+
 Vue.use(VueResource)
 
 var rpcUrl = 'http://localhost:6800/jsonrpc'; // TODO it will to setted by user
 var rpcParam = '';// TODO
-var info = {downloadSpeed: '0',uploadSpeed: '0',version: 'unknow'};
+var info = {
+	globalStat: {
+		downloadSpeed: '0',
+		uploadSpeed: '0',
+		numActive: '0',
+		numWaiting: '0',
+		numStopped: '0',
+		numStoppedTotal: '0',
+	},
+	version: 'unknow'
+};
 var downLoadSpeedList=[];
 var upLoadSpeedList=[];
 var counter=[];
@@ -45,8 +59,74 @@ var taskList={
 		uploadLenght: '',
 		uploadSpeed: ''
 	}], 
-	wating: [], 
-	tellStopped: []
+	wating: [{
+		bitfield: '',
+		bittorrent: {
+			announceList: [[]],
+			comment: '',
+			creationDate: '',
+			info: {
+				name: ''
+			},
+			mode: ''
+		},
+		completedLength:'',
+		connections:'',
+		dir:'',
+		downloadSpeed:'',
+		files: [{
+			completedLength: '',
+			index: '',
+			length: '',
+			path: '',
+			selected: '',
+			uris: []
+		}],
+		gid: '',
+		infoHash: '',
+		numPieces: '',
+		numSeeders: '',
+		pieceLength: '',
+		seeder: '',
+		status: '',
+		totalLength: '',
+		uploadLenght: '',
+		uploadSpeed: ''
+	}], 
+	stopped: [{
+		bitfield: '',
+		bittorrent: {
+			announceList: [[]],
+			comment: '',
+			creationDate: '',
+			info: {
+				name: ''
+			},
+			mode: ''
+		},
+		completedLength:'',
+		connections:'',
+		dir:'',
+		downloadSpeed:'',
+		files: [{
+			completedLength: '',
+			index: '',
+			length: '',
+			path: '',
+			selected: '',
+			uris: []
+		}],
+		gid: '',
+		infoHash: '',
+		numPieces: '',
+		numSeeders: '',
+		pieceLength: '',
+		seeder: '',
+		status: '',
+		totalLength: '',
+		uploadLenght: '',
+		uploadSpeed: ''
+	}]
 };
 
 new Vue({
@@ -68,40 +148,50 @@ new Vue({
 		},
 		getGlobalSpeed: function() {
 			var self = this;
-			self.$http.get(rpcUrl, {params:{'jsonrpc':'2.0', 'id':'aria2web', 'method':'aria2.getGlobalStat'}}).then((response)=>{
+			self.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.getGlobalStat'}}).then((response)=>{
 				setTimeout(function(){
 					self.getGlobalSpeed() 
 				}, 1000);
-				info.downloadSpeed = (response.data.result.downloadSpeed);
-				info.uploadSpeed = (response.data.result.uploadSpeed);
-				downLoadSpeedList.push(info.downloadSpeed); // maybe there a problem with data add too much
-				upLoadSpeedList.push(info.uploadSpeed);
+				info.globalStat = response.data.result;
+				downLoadSpeedList.push(info.globalStat.downloadSpeed); // maybe there a problem with data add too much
+				upLoadSpeedList.push(info.globalStat.uploadSpeed);
 				counter.push(counter.length);
-				chart.update();
+				//chart.update();
 				// console.log(response.data.result);
 			},(response)=>{
 				console.log('error')
 			})
 		},
+		//TODO
+		addTask: function() {
+			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.add', 'params': ''}}).then((response)=>{
+				console.log(response.data.result);
+			},(response)=>{
+				console.log(response);
+			})
+		}
 	},
 	computed: {
 		downLoad: function() {
-			return speedFormat(info.downloadSpeed);
+			return format.speedFormat(info.globalStat.downloadSpeed);
 		},
 		upLoad: function() {  
-			return speedFormat(info.uploadSpeed);
+			return format.speedFormat(info.globalStat.uploadSpeed);
 		}
 	},
-	watch: {
-		downloadSpeed: function() {
+	// watch: {
+	// 	downloadSpeed: function() {
 
-		}
-	}
+	// 	}
+	// }
 });
 
 new Vue({
-	el: '#tasks',
+	el: '#activeTasks',
 	data: taskList,
+	components: {
+		taskDetail: require('./components/task-detail.js')
+	},
 	mounted: function() {
 		this.getActionTask();
 	},
@@ -113,18 +203,12 @@ new Vue({
 					self.getActionTask() 
 				}, 1000);
 				taskList.active=response.data.result;
-				//console.log(this.active);
+				//console.log(response.data.result);
 			},(response)=>{
 				console.log(response.data.error);
 			})
-		}
+		},
 	},
-	computed: {
-		rate: function() {
-
-			return "50%";
-		}
-	}
 });
 
 // fetch canvas DOM element
@@ -177,21 +261,3 @@ var chart = new Chart(canvas, {
 		}
 	}
 })
-
-// TODO poor code style
-function speedFormat(speed) {
-	var speedBps = speed * 1;
-	if(speedBps > 1000) {
-		var speedKbps = (speedBps / 1024).toFixed(2);
-		if(speedKbps > 1000) {
-			var speedMbps = (speedKbps / 1024).toFixed(2);
-			return speedMbps + 'Mbps';
-		}else{
-			return speedKbps + 'Kbps';
-		}
-	}else{
-		return speed + 'Bps';
-	}
-}
-
-
