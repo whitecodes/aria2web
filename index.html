@@ -46,18 +46,10 @@
 				<button class="pure-button">setting</button>
 			</div>
 		</div>
-		</div>
-		<!-- TODO:下面这部分网页要组件化 -->
-		<div id="activeTasks"> <!-- v-if="globalStat.numActive > 0"> -->
-			<table class="pure-table pure-table-horizontal task-list">
-				<tbody>
-					<template v-for="(task, index) in active">
-						<task-detail v-bind:task-detail="task"></task-detail>
-					</template>
-				</tbody>
-			</table>
-		</div>
-	<!-- </div> -->
+		<task-list v-show="globalStat.numActive > 0" task-stat="Active"></task-list>
+		<task-list v-show="globalStat.numWaiting > 0" task-stat="Waiting"></task-list>
+		<task-list v-show="globalStat.numStoppedTotal > 0" task-stat="Stopped"></task-list>
+	</div>
 	<script src="./dist/build.js"></script> 
 </body>
 </html>

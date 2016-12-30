@@ -14,6 +14,13 @@ export default {
         }else{
             return speed + 'Bps';
         }
+    },
+    fileNameFormat: function(fileName){
+        if(fileName.length > 53){
+            return fileName.substring(0, 50) + '...'
+        }else{
+            return fileName;
+        }
     }
 }
 

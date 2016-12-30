@@ -1,20 +1,19 @@
 <tr>
-<!-- TODO:间距分配 -->
-	<td>{{ taskDetail.gid }}</td>
-	<td>{{ taskDetail.bittorrent.info.name }}</td>
-	<td>{{ rate }}</td>
-	<td>{{ downLoad }}</td>
-	<td>{{ upLoad }}</td>
-	<td>{{ taskDetail.status }}</td>
-	<td>
+<!-- TODO:间距分配调整 -->
+<!-- TODO:CSS 要放到另一个文件 -->
+<!-- 	<td>{{ taskDetail.gid }}</td> -->
+	<td style="width: 50%">{{ taskName }}</td>
+	<td style="width: 10%">{{ rate }}</td>
+	<td style="width: 10%">{{ downLoad }}</td>
+	<td style="width: 10%">{{ upLoad }}</td>
+	<td style="width: 10%">{{ taskDetail.status }}</td>
+	<td style="width: 10%">
 	<!-- TODO:开始任务的功能添加 -->
-		<button class="pure-button" v-show="taskDetail.status == 'paused'">start</button>
+		<button class="pure-button" v-if="taskDetail.status == 'paused'">start</button>
+		<button class="pure-button" v-else v-on:click="pauseTask">stop</button>
 	</td>
-	<td>
-		<button class="pure-button" v-show="taskDetail.status != 'paused'" v-on:click="pauseTask">stop</button>
-	</td>
-	<td>
-		<!-- TODO:删除任务的功能添加 -->
+	<!-- <td>
+		TODO:删除任务的功能添加
 		<button class="pure-button">remove</button>
-	</td>
+	</td> -->
 </tr>

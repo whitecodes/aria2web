@@ -1,0 +1,9 @@
+<div id="activeTasks">
+	<table class="pure-table pure-table-horizontal task-list">
+		<tbody>
+			<template v-for="(task, index) in tasks">
+				<task-detail v-bind:task-detail="task"></task-detail>
+			</template>
+		</tbody>
+	</table>
+</div>

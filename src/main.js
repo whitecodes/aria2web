@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Chart from 'chart.js'
 
-import format from './components/speed-format.js'
+import format from './components/data-format.js'
 
 Vue.config.debug = true;
 
@@ -132,6 +132,9 @@ var taskList={
 new Vue({
 	el: '#app',
 	data: info,
+	components: {
+		taskList: require('./components/task-list.js')
+	},
 	mounted: function() {
 		this.getVersion();
 		this.getGlobalSpeed();
@@ -156,7 +159,7 @@ new Vue({
 				downLoadSpeedList.push(info.globalStat.downloadSpeed); //TODO: maybe there a problem with data add too much
 				upLoadSpeedList.push(info.globalStat.uploadSpeed);
 				counter.push(counter.length);
-				//chart.update();
+				chart.update();
 				// console.log(response.data.result);
 			},(response)=>{
 				console.log('error')
@@ -186,31 +189,6 @@ new Vue({
 	// }
 });
 
-// TODO:这个要组件化
-new Vue({
-	el: '#activeTasks',
-	data: taskList,
-	components: {
-		taskDetail: require('./components/task-detail.js')
-	},
-	mounted: function() {
-		this.getActionTask();
-	},
-	methods: {
-		getActionTask: function() {
-			var self = this;
-			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.tellActive'}}).then((response)=>{
-				setTimeout(function(){
-					self.getActionTask() 
-				}, 1000);
-				taskList.active=response.data.result;
-				//console.log(response.data.result);
-			},(response)=>{
-				console.log(response.data.error);
-			})
-		},
-	},
-});
 
 // fetch canvas DOM element
 let canvas = document.getElementById("canvas");
