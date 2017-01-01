@@ -11,7 +11,7 @@
 1. 去[官网](https://aria2.github.io/)下载`Aria2c`。
 2. 配置`aria2.conf`，开机自启
 `aria2.conf`内容如下，其他设置参看[Manual](https://aria2.github.io/manual/en/html/index.html)
-``` xml
+```
 # 下载文件存放的地址
 dir=E:\Download\Aria2
 
