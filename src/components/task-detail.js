@@ -22,7 +22,7 @@ module.exports = {
     },
     computed: {
         taskName: function() {
-            if(this.taskDetail.bittorrent.info) {
+            if(this.taskDetail.bittorrent && this.taskDetail.bittorrent.info) {
                 return format.fileNameFormat(this.taskDetail.bittorrent.info.name);
             }else if(this.taskDetail.files) {
                 return format.fileNameFormat(this.taskDetail.files[0].path);

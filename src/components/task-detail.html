@@ -10,7 +10,7 @@
 	<td style="width: 10%">
 	<!-- TODO:开始任务的功能添加 -->
 		<button class="pure-button" v-if="taskDetail.status == 'paused'">start</button>
-		<button class="pure-button" v-else v-on:click="pauseTask">stop</button>
+		<button class="pure-button" v-else-if="taskDetail.status != 'complete'" v-on:click="pauseTask">stop</button>
 	</td>
 	<!-- <td>
 		TODO:删除任务的功能添加
