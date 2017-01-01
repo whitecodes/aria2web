@@ -1,108 +1,3 @@
-var taskList={
-	active: [{
-		bitfield: '',
-		bittorrent: {
-			announceList: [[]],
-			comment: '',
-			creationDate: '',
-			info: {
-				name: ''
-			},
-			mode: ''
-		},
-		completedLength:'',
-		connections:'',
-		dir:'',
-		downloadSpeed:'',
-		files: [{
-			completedLength: '',
-			index: '',
-			length: '',
-			path: '',
-			selected: '',
-			uris: []
-		}],
-		gid: '',
-		infoHash: '',
-		numPieces: '',
-		numSeeders: '',
-		pieceLength: '',
-		seeder: '',
-		status: '',
-		totalLength: '',
-		uploadLenght: '',
-		uploadSpeed: ''
-	}], 
-	// wating: [{
-	// 	bitfield: '',
-	// 	bittorrent: {
-	// 		announceList: [[]],
-	// 		comment: '',
-	// 		creationDate: '',
-	// 		info: {
-	// 			name: ''
-	// 		},
-	// 		mode: ''
-	// 	},
-	// 	completedLength:'',
-	// 	connections:'',
-	// 	dir:'',
-	// 	downloadSpeed:'',
-	// 	files: [{
-	// 		completedLength: '',
-	// 		index: '',
-	// 		length: '',
-	// 		path: '',
-	// 		selected: '',
-	// 		uris: []
-	// 	}],
-	// 	gid: '',
-	// 	infoHash: '',
-	// 	numPieces: '',
-	// 	numSeeders: '',
-	// 	pieceLength: '',
-	// 	seeder: '',
-	// 	status: '',
-	// 	totalLength: '',
-	// 	uploadLenght: '',
-	// 	uploadSpeed: ''
-	// }], 
-	// stopped: [{
-	// 	bitfield: '',
-	// 	bittorrent: {
-	// 		announceList: [[]],
-	// 		comment: '',
-	// 		creationDate: '',
-	// 		info: {
-	// 			name: ''
-	// 		},
-	// 		mode: ''
-	// 	},
-	// 	completedLength:'',
-	// 	connections:'',
-	// 	dir:'',
-	// 	downloadSpeed:'',
-	// 	files: [{
-	// 		completedLength: '',
-	// 		index: '',
-	// 		length: '',
-	// 		path: '',
-	// 		selected: '',
-	// 		uris: []
-	// 	}],
-	// 	gid: '',
-	// 	infoHash: '',
-	// 	numPieces: '',
-	// 	numSeeders: '',
-	// 	pieceLength: '',
-	// 	seeder: '',
-	// 	status: '',
-	// 	totalLength: '',
-	// 	uploadLenght: '',
-	// 	uploadSpeed: ''
-	// }]
-};
-
 module.exports = {
 	template: require('./task-list.html'),
 	props:{
@@ -171,6 +66,7 @@ module.exports = {
 	},
 }
 
+// TODO:放到 data-format 中
 function getParams(taskStat) {
 	if(taskStat == 'Active') {
 		return;

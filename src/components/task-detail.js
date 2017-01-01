@@ -8,9 +8,6 @@ module.exports = {
             required: true
         }
     },
-    // mounted: function() {
-    //     console.log(format.speedFormat(10000))
-    // },
     methods: {
         pauseTask: function() {
             this.$http.get('http://localhost:6800/jsonrpc', {params: {'jsonrpc': '2.0', 'id': 'aria2web','method': 'aria2.pause', 'params': btoa('[\"' + this.taskDetail.gid + '\"]') }}).then((response)=>{
