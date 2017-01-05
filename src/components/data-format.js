@@ -7,12 +7,12 @@ export default {
             var speedKbps = (speedBps / 1024).toFixed(2);
             if(speedKbps > 1000) {
                 var speedMbps = (speedKbps / 1024).toFixed(2);
-                return speedMbps + 'Mbps';
+                return speedMbps + 'M';
             }else{
-                return speedKbps + 'Kbps';
+                return speedKbps + 'K';
             }
         }else{
-            return speed + 'Bps';
+            return speed + 'B';
         }
     },
     fileNameFormat: function(fileName){

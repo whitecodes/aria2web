@@ -11,7 +11,7 @@
 		border-bottom-width: 1px;
 		border-right-width: 0px;
 		border-left-width: 0px;
-		height: 40px;
+		height: 30px;
 		width: 100%
 	}
 	.leftBar{
@@ -19,6 +19,11 @@
 	}
 	.rightIBar{
 		float: right;
+	}
+	.icon-button{
+		background: transparent;
+		border: transparent;
+		vertical-align: sub;
 	}
 	.task-list{
 		width: 100%
@@ -30,20 +35,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>aria2web</title>
 	<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.1/build/pure-min.css" integrity="sha384-CCTZv2q9I9m3UOxRLaJneXrrqKwUNOzZ6NGEUMwHtShDJ+nCoiXJCAgi05KfkLGY" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body style="margin: 0px">
 	<div id="app">
-		<canvas id="canvas" style="width: 100%; height: 200px" class="speedChart"></canvas>
+		<canvas id="canvas" style="width: 100%; height: 100px" class="speedChart"></canvas>
 		<div class="midBar">
 			<div class="leftBar">
-				<button class="pure-button" v-on:click="addTask">add</button>
+				<button class="material-icons icon-button" v-on:click="addTask">add_circle_outline</button>
 			</div>
 			<div class="rightIBar">
-				<span v-show="globalStat.downloadSpeed > 0">down:{{ downLoad }}</span>
+				<span v-show="globalStat.downloadSpeed > 0">
+					<i class="material-icons speed-icon">keyboard_arrow_down</i>
+					{{ downLoad }}
+				</span>
 				<span v-show="globalStat.downloadSpeed > 0 && globalStat.uploadSpeed > 0">/</span>
-				<span v-show="globalStat.uploadSpeed > 0">up:{{ upLoad }}</span>
+				<span v-show="globalStat.uploadSpeed > 0">
+					<i class="material-icons speed-icon">keyboard_arrow_up</i>
+					{{ upLoad }}
+				</span>
 				<span>  version: {{ version }}</span>
-				<button class="pure-button">setting</button>
+				<button class="material-icons icon-button">settings</button>
 			</div>
 		</div>
 		<task-list v-show="globalStat.numActive > 0" task-stat="Active"></task-list>

@@ -7,7 +7,7 @@ module.exports = {
 		}
 	},
 	components: {
-		taskDetail: require('./task-detail.js')
+		taskDetail: require('./task-detail.vue')
 	},
 	data: function(){
 		return {
