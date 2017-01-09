@@ -10,7 +10,7 @@
             <button class='btn-before btn-blue'>URL：</button><input type='text' v-model="taskUrl" /><button class='btn-after btn-blue'>UPLOAD</button>
           </div>
           <div class="btn-group h4">
-            <button class='btn-before btn-blue'>File Name：</button><input type='text' v-model="taskUrl" />
+            <button class='btn-before btn-blue'>File Name：</button><input type='text'/>
           </div>
           <div class='btn-group h4'>
             <button class="btn btn-sm btn-gray mb1em float-right" @click="$emit('close')">

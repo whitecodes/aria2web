@@ -19,7 +19,8 @@ var info = {
 		numStopped: '0',
 		numStoppedTotal: '0',
 	},
-	version: 'unknow'
+	version: 'unknow',
+	showModal: false
 };
 var downLoadSpeedList=[];
 var upLoadSpeedList=[];
@@ -29,7 +30,8 @@ new Vue({
 	el: '#app',
 	data: info,
 	components: {
-		taskList: require('./components/task-list.js')
+		taskList: require('./components/task-list.js'),
+		addTask: require('./components/add-task.vue')
 	},
 	mounted: function() {
 		this.getVersion();
@@ -52,22 +54,18 @@ new Vue({
 					self.getGlobalSpeed() 
 				}, 1000);
 				info.globalStat = response.data.result;
-				downLoadSpeedList.push(info.globalStat.downloadSpeed); //TODO: maybe there a problem with data add too much
-				upLoadSpeedList.push(info.globalStat.uploadSpeed);
-				counter.push(counter.length);
-				chart.update();
-				// console.log(response.data.result);
-			},(response)=>{
-				console.log('error')
-			})
+                downLoadSpeedList.push(info.globalStat.downloadSpeed); //TODO: maybe there a problem with data add too much
+                upLoadSpeedList.push(info.globalStat.uploadSpeed);
+                counter.push(counter.length);
+                chart.update();
+                //console.log(speedList);
+            },(response)=>{
+            	console.log('error')
+            })
 		},
 		//TODO：add task
 		addTask: function() {
-			this.$http.get(rpcUrl, {params: {'jsonrpc': '2.0', 'id': 'aria2web', 'method': 'aria2.add', 'params': ''}}).then((response)=>{
-				console.log(response.data.result);
-			},(response)=>{
-				console.log(response);
-			})
+			this.showModal = true;
 		}
 	},
 	computed: {
@@ -85,7 +83,6 @@ new Vue({
 	// }
 });
 
-
 // fetch canvas DOM element
 let canvas = document.getElementById("canvas");
 // init chart.js
@@ -99,40 +96,40 @@ var chart = new Chart(canvas, {
 			borderColor: "rgba(0,255,0,1)",
 			yAxisID: "y-axis-0",
 			data: downLoadSpeedList,
-			radius: 0 // data point dons't display
-		},{
-			fill: false,
-			backgroundColor: "rgba(255,255,0,0.4)",
-			borderColor: "rgba(255,255,0,1)",
-			yAxisID: "y-axis-1",
-			data: upLoadSpeedList,
-			radius: 0
-		}]
-	},
-	spanGaps: true,
-	options: {
-		scales:{
-			xAxes: [{
-				display: false
-			}],
-			yAxes:[{
-				display: false,
-				ticks: {
-					beginAtZero:true
-				},
-				position: "left",
-				id: "y-axis-0"
-			}, {
-				display: false,
-				ticks: {
-					beginAtZero:true
-				},
-				position: "left",
-				id: "y-axis-1"
-			}]
-		},
-		legend: {
-			display: false
-		}
-	}
+            radius: 0 // data point dons't display
+        },{
+        	fill: false,
+        	backgroundColor: "rgba(255,255,0,0.4)",
+        	borderColor: "rgba(255,255,0,1)",
+        	yAxisID: "y-axis-1",
+        	data: upLoadSpeedList,
+        	radius: 0
+        }]
+    },
+    spanGaps: true,
+    options: {
+    	scales:{
+    		xAxes: [{
+    			display: false
+    		}],
+    		yAxes:[{
+    			display: false,
+    			ticks: {
+    				beginAtZero:true
+    			},
+    			position: "left",
+    			id: "y-axis-0"
+    		}, {
+    			display: false,
+    			ticks: {
+    				beginAtZero:true
+    			},
+    			position: "left",
+    			id: "y-axis-1"
+    		}]
+    	},
+    	legend: {
+    		display: false
+    	}
+    }
 })

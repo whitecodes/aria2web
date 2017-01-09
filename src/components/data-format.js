@@ -16,11 +16,12 @@ export default {
         }
     },
     fileNameFormat: function(fileName){
-        if(fileName.length > 53){
-            return fileName.substring(0, 50) + '...'
-        }else{
-            return fileName;
+        var re = new RegExp('[^/]+(?!.*/)');
+        var fileNameList = re.exec(fileName);
+        if(fileNameList) {
+            return fileNameList[0]
         }
+        return fileName;
     }
 }
 

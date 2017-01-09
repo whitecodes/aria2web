@@ -66,7 +66,7 @@ module.exports = {
 	},
 }
 
-// TODO:放到 data-format 中
+// TODO:Paramsde 的格式化放到 data-format 中
 function getParams(taskStat) {
 	if(taskStat == 'Active') {
 		return;
