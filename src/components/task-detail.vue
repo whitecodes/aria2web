@@ -4,26 +4,20 @@
             {{ taskName }}
         </div>
         <div class="task-info">
-            <div class="task-rate">
-                {{ rate }}%
+            <div class="progress" v-bind:style="{width: rate+'%'}">
             </div>
             <div class="task-speed" v-show="this.taskDetail.status == 'active'">
+                <span>
+                    {{ rate }}%
+                </span>
                 <span v-show="this.taskDetail.downloadSpeed > 0">
                     <i class="material-icons speed-icon">keyboard_arrow_down</i>
                     {{ downLoad }}
                 </span>
-                <span v-show="this.taskDetail.downloadSpeed > 0 && this.taskDetail.uploadSpeed > 0">/</span>
                 <span v-show="this.taskDetail.uploadSpeed > 0">
                     <i class="material-icons speed-icon">keyboard_arrow_up</i>
                     {{ upLoad }}
                 </span>
-                <span v-show="this.taskDetail.downloadSpeed == 0 && this.taskDetail.uploadSpeed == 0 && rate == '100.00'">
-                    upload...
-                </span>
-                <span v-show="this.taskDetail.downloadSpeed == 0 && this.taskDetail.uploadSpeed == 0 && rate != '100.00'">
-                    download...
-                </span>
-                <progress v-bind:value="rate" max="100"></progress>
             </div>  
         </div>
         <div class="task-control">
@@ -114,9 +108,20 @@
     }
 
     .task-info{
-        padding: 5px;
+        /*padding: 5px;*/
+        position:relative;
         display: block;
-        width: 250px
+        width: 100%;
+        background-color:#9E9E9E;
+        text-align: right;
+
+    }
+
+    .progress{
+        position:relative;
+        height: 34px;
+        background: #FF5722;    
+        z-index: 1;
     }
 
     .task-rate{
@@ -125,7 +130,11 @@
     }
 
     .task-speed{
+        position:absolute;
+        top: 0px;
         display: block;
+        padding:5px;  
+        z-index:2;   
     }
 
     .task-control{
