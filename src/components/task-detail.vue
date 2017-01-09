@@ -36,6 +36,7 @@
 
 <script type="text/javascript">
     import format from './data-format.js'
+    console.log('error')
 
     module.exports = {
         name: 'taskDetail',
@@ -98,14 +99,16 @@
         display: block;
         margin: 5px;
         width: 250px;
-        box-shadow: 2px 2px 3px #888888;
+        box-shadow: 2px 2px 3px #424242;
     }
 
     .task-name{
-        padding: 5px 5px 20px 5px;
-        background-color: #2196F3;
+        padding: 5px 5px 30px 5px;
+        background-color: #0D47A1;
+        color: #E0E0E0;
         word-break:break-all;
     }
+
 
     .task-info{
         /*padding: 5px;*/

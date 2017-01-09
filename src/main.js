@@ -58,7 +58,6 @@ new Vue({
                 upLoadSpeedList.push(info.globalStat.uploadSpeed);
                 counter.push(counter.length);
                 chart.update();
-                //console.log(speedList);
             },(response)=>{
             	console.log('error')
             })

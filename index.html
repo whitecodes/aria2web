@@ -51,12 +51,11 @@
 					<i class="material-icons speed-icon">keyboard_arrow_down</i>
 					{{ downLoad }}
 				</span>
-				<span v-show="globalStat.downloadSpeed > 0 && globalStat.uploadSpeed > 0">/</span>
 				<span v-show="globalStat.uploadSpeed > 0">
 					<i class="material-icons speed-icon">keyboard_arrow_up</i>
 					{{ upLoad }}
 				</span>
-				<span>  version: {{ version }}</span>
+				<span>Aria Version: {{ version }}</span>
 				<button class="material-icons icon-button">settings</button>
 			</div>
 		</div>
