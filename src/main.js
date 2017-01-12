@@ -20,7 +20,8 @@ var info = {
 		numStoppedTotal: '0',
 	},
 	version: 'unknow',
-	showModal: false
+	showModal: false,
+	showTaskStat: 'Active'
 };
 var downLoadSpeedList=[];
 var upLoadSpeedList=[];
@@ -62,9 +63,11 @@ new Vue({
             	console.log('error')
             })
 		},
-		//TODO：add task
 		addTask: function() {
 			this.showModal = true;
+		},
+		switchTask: function(stat) {
+			this.showTaskStat = stat;
 		}
 	},
 	computed: {

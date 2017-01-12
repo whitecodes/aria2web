@@ -103,10 +103,11 @@
     }
 
     .task-name{
-        padding: 5px 5px 30px 5px;
+        padding: 5px 5px 5px 5px;
         background-color: #0D47A1;
         color: #E0E0E0;
         word-break:break-all;
+        height: 100px;
     }
 
 

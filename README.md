@@ -2,7 +2,7 @@
 
 > An Aria2 Web Frontend project with Vue.js 
 
-![aria2web截图](http://oaigdk90m.bkt.clouddn.com/aria2web-01.01.jpg?imageMogr2/auto-orient/format/webp)
+![aria2web截图](http://oaigdk90m.bkt.clouddn.com/aria2web-01.09.jpg?imageMogr2/auto-orient/format/webp)
 
 ## Usage
 [Demo](http://whitecode.coding.me/aria2web/)   [Code](https://github.com/whitecodes/aria2web)
