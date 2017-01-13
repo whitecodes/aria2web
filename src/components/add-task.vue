@@ -170,26 +170,17 @@
     color: white;
   }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
+  .modal-add-enter {
+    opacity: 0;
+  }
 
- .modal-add-enter {
-  opacity: 0;
-}
+  .modal-add-leave-active {
+    opacity: 0;
+  }
 
-.modal-add-leave-active {
-  opacity: 0;
-}
-
-.modal-add-enter .modal-container,
-.modal-add-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-} 
+  .modal-add-enter .modal-container,
+  .modal-add-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  } 
 </style>

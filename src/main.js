@@ -31,7 +31,7 @@ new Vue({
 	el: '#app',
 	data: info,
 	components: {
-		taskList: require('./components/task-list.js'),
+		taskList: require('./components/task-list.vue'),
 		addTask: require('./components/add-task.vue')
 	},
 	mounted: function() {

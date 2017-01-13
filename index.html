@@ -38,6 +38,10 @@
 	.task-list{
 		width: 100%
 	}
+
+	[v-cloak] {
+		display: none;
+	}
 </style>
 
 <head>
@@ -55,7 +59,7 @@
 			<div class="leftBar">
 				<button class="material-icons icon-button" v-on:click="addTask">add_circle_outline</button>
 			</div>
-			<div class="rightBar">
+			<div class="rightBar" v-cloak>
 				<span v-show="globalStat.downloadSpeed > 0">
 					<i class="material-icons speed-icon">keyboard_arrow_down</i>
 					{{ downLoad }}
