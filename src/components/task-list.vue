@@ -1,10 +1,8 @@
 <template>
-	<div id="taskList" class="task-list">
-	<transition name="fade">
+	<div id="taskList"  class="task-list">
 		<template v-for="(task, index) in tasks">
 			<task-detail v-bind:task-detail="task"></task-detail>
 		</template>
-		</transition>
 	</div>
 </template>
 
@@ -88,17 +86,11 @@
 
 <style type="text/css">
 	.task-list{
+		width: 100%;
 		display: flex;
-		flex: row wrap;
+		flex-wrap: wrap;
 		align-content: flex-start;
 		padding: 0px;
 	}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-active {
-  opacity: 0
-}
 
 </style>
